@@ -1,5 +1,14 @@
 <script setup lang="ts">
+import { computed, onMounted } from 'vue'
+import { useAuth } from '~/composables/useAuth'
+
 const colorMode = useColorMode()
+const auth = useAuth()
+
+// Load token & user dari localStorage saat app mounted
+onMounted(() => {
+  auth.loadToken()
+})
 
 const color = computed(() => colorMode.value === 'dark' ? '#1b1718' : 'white')
 
@@ -34,7 +43,6 @@ useSeoMeta({
 <template>
   <UApp>
     <NuxtLoadingIndicator />
-
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

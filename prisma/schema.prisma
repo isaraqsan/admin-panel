@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id          Int       @id @default(autoincrement())
+  name        String
+  logo        String?
+  address     String?
+  phone       String?
+  email       String?
+  about       String?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  users       User[]
+  pages       Page[]
+  services    Service[]
+  products    Product[]
+  galleries   Gallery[]
+  teams       Team[]
+  posts       BlogPost[]
+  testimonials Testimonial[]
+  settings    Setting?
+}
+
+// ====== USER / AUTH ======
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  name      String?
+  role      String     @default("admin")
+  createdAt DateTime   @default(now())
+
+  companyId Int
+  company   Company    @relation(fields: [companyId], references: [id])
+
+  posts     BlogPost[]
+}
+
+// ====== CONTENT MODELS ======
+
+model Gallery {
+  id        Int      @id @default(autoincrement())
+  title     String
+  image     String
+  createdAt DateTime @default(now())
+
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model Page {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  icon        String?
+  image       String?
+  createdAt   DateTime @default(now())
+
+  companyId   Int
+  company     Company @relation(fields: [companyId], references: [id])
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float?
+  image       String?
+  createdAt   DateTime @default(now())
+
+  companyId   Int
+  company     Company @relation(fields: [companyId], references: [id])
+}
+
+model Team {
+  id        Int      @id @default(autoincrement())
+  name      String
+  position  String
+  photo     String?
+  bio       String?
+  createdAt DateTime @default(now())
+
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model BlogPost {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  content     String
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+
+  companyId   Int
+  company     Company @relation(fields: [companyId], references: [id])
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  company   String?   // nama perusahaan dari pelanggan Testimonial
+  message   String
+  photo     String?
+  createdAt DateTime @default(now())
+
+  companyId Int
+  companyRef Company @relation(fields: [companyId], references: [id])
+}
+
+model Setting {
+  id        Int      @id @default(autoincrement())
+  siteName  String
+  logo      String?
+  address   String?
+  phone     String?
+  email     String?
+  about     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  companyId Int    @unique
+  company   Company @relation(fields: [companyId], references: [id])
+}

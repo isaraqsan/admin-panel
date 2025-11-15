@@ -6,71 +6,51 @@ const toast = useToast()
 
 const open = ref(false)
 
-const links = [[{
-  label: 'Home',
-  icon: 'i-lucide-house',
-  to: '/',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Inbox',
-  icon: 'i-lucide-inbox',
-  to: '/inbox',
-  badge: '4',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Customers',
-  icon: 'i-lucide-users',
-  to: '/customers',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Settings',
-  to: '/settings',
-  icon: 'i-lucide-settings',
-  defaultOpen: true,
-  type: 'trigger',
-  children: [{
-    label: 'General',
+const links = [[
+  {
+    label: 'Home',
+    icon: 'i-lucide-home', // house → home
+    to: '/',
+    onSelect: () => { open.value = false }
+  },
+  {
+    label: 'Contacts',
+    icon: 'i-lucide-book-user', // sudah cocok
+    to: '/customers',
+    onSelect: () => { open.value = false }
+  },
+  {
+    label: 'Gallery',
+    icon: 'i-lucide-image', // users → image
+    to: '/gallery',
+    onSelect: () => { open.value = false }
+  },
+  {
+    label: 'Teams',
+    icon: 'i-lucide-users', // users → user-group
+    to: '/team',
+    onSelect: () => { open.value = false }
+  },
+  {
+    label: 'Company',
+    icon: 'i-lucide-building', // settings → building
+    to: '/company',
+    onSelect: () => { open.value = false }
+  },
+  {
+    label: 'Settings',
     to: '/settings',
-    exact: true,
-    onSelect: () => {
-      open.value = false
-    }
-  }, {
-    label: 'Members',
-    to: '/settings/members',
-    onSelect: () => {
-      open.value = false
-    }
-  }, {
-    label: 'Notifications',
-    to: '/settings/notifications',
-    onSelect: () => {
-      open.value = false
-    }
-  }, {
-    label: 'Security',
-    to: '/settings/security',
-    onSelect: () => {
-      open.value = false
-    }
-  }]
-}], [{
-  label: 'Feedback',
-  icon: 'i-lucide-message-circle',
-  to: 'https://github.com/nuxt-ui-templates/dashboard',
-  target: '_blank'
-}, {
-  label: 'Help & Support',
-  icon: 'i-lucide-info',
-  to: 'https://github.com/nuxt-ui-templates/dashboard',
-  target: '_blank'
-}]] satisfies NavigationMenuItem[][]
+    icon: 'i-lucide-settings', // sudah oke
+    defaultOpen: true,
+    type: 'trigger',
+    children: [
+      { label: 'General', to: '/settings', exact: true, onSelect: () => { open.value = false } },
+      { label: 'Members', to: '/settings/members', icon: 'i-lucide-user', onSelect: () => { open.value = false } },
+      { label: 'Notifications', to: '/settings/notifications', icon: 'i-lucide-bell', onSelect: () => { open.value = false } },
+      { label: 'Security', to: '/settings/security', icon: 'i-lucide-lock', onSelect: () => { open.value = false } }
+    ]
+  }
+]] satisfies NavigationMenuItem[][]
 
 const groups = computed(() => [{
   id: 'links',
@@ -116,14 +96,8 @@ onMounted(async () => {
 
 <template>
   <UDashboardGroup unit="rem">
-    <UDashboardSidebar
-      id="default"
-      v-model:open="open"
-      collapsible
-      resizable
-      class="bg-elevated/25"
-      :ui="{ footer: 'lg:border-t lg:border-default' }"
-    >
+    <UDashboardSidebar id="default" v-model:open="open" collapsible resizable class="bg-elevated/25"
+      :ui="{ footer: 'lg:border-t lg:border-default' }">
       <template #header="{ collapsed }">
         <TeamsMenu :collapsed="collapsed" />
       </template>
@@ -131,21 +105,9 @@ onMounted(async () => {
       <template #default="{ collapsed }">
         <UDashboardSearchButton :collapsed="collapsed" class="bg-transparent ring-default" />
 
-        <UNavigationMenu
-          :collapsed="collapsed"
-          :items="links[0]"
-          orientation="vertical"
-          tooltip
-          popover
-        />
+        <UNavigationMenu :collapsed="collapsed" :items="links[0]" orientation="vertical" tooltip popover />
 
-        <UNavigationMenu
-          :collapsed="collapsed"
-          :items="links[1]"
-          orientation="vertical"
-          tooltip
-          class="mt-auto"
-        />
+        <UNavigationMenu :collapsed="collapsed" :items="links[1]" orientation="vertical" tooltip class="mt-auto" />
       </template>
 
       <template #footer="{ collapsed }">
