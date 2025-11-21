@@ -98,7 +98,7 @@ const handleConfirmDelete = async () => {
                         <div v-if="newFile"
                             class="relative w-20 h-20 rounded-xl overflow-hidden border border-gray-300 dark:border-gray-700 shadow-sm">
                             <img :src="filePreview" alt="Preview"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"/>
                         </div>
                     </transition>
 
@@ -117,7 +117,7 @@ const handleConfirmDelete = async () => {
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 <UCard v-for="gallery in galleries" :key="gallery.id" class="p-3 flex flex-col">
-                    <img :src="gallery.image" alt="" class="w-full h-48 object-cover rounded-md mb-2" />
+                    <img :src="gallery.image" alt="" class="w-full h-48 object-cover rounded-md mb-2" loading="lazy"/>
                     <h3 class="text-lg font-medium mb-2">{{ gallery.title }}</h3>
                     <UButton color="error" variant="outline" size="sm" @click="confirmDelete(gallery.id)">
                         Delete
@@ -129,7 +129,7 @@ const handleConfirmDelete = async () => {
 
     <!-- ✅ Modal Konfirmasi Delete -->
     <!-- Tambahkan di bawah </UDashboardPanel> -->
-    <UModal v-if="showConfirm" :open="showConfirm" title="Delete Confirmation" prevent-close
+    <UModal v-if="showConfirm" :close="showConfirm = false" :open="showConfirm" title="Delete Confirmation" prevent-close
         @close="showConfirm = false">
         <template #body>
             <div class="p-4 text-center space-y-3">

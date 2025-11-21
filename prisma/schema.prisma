@@ -27,7 +27,9 @@ model Company {
   teams       Team[]
   posts       BlogPost[]
   testimonials Testimonial[]
+  sections  Section[]  
   settings    Setting?
+  theme       Theme? // ← tambahkan ini
 }
 
 // ====== USER / AUTH ======
@@ -156,3 +158,65 @@ model Setting {
   companyId Int    @unique
   company   Company @relation(fields: [companyId], references: [id])
 }
+
+model Section {
+  id          Int       @id @default(autoincrement())
+  name        String    // "features", "products", "banner", dll
+  title       String
+  description String?
+  order       Int
+  companyId   Int
+  company     Company   @relation(fields: [companyId], references: [id])
+  
+  banners     Banner[]  // relasi ke banners kalau section ini banner
+}
+
+model Banner {
+  id        Int      @id @default(autoincrement())
+  title     String?
+  image     String
+  order     Int      @default(0)
+
+  sectionId Int
+  section   Section  @relation(fields: [sectionId], references: [id])
+}
+
+model Theme {
+  id           Int           @id @default(autoincrement())
+  name         String?       // "Coffee", "Minimalist", dll.
+
+  // Font settings (semua optional)
+  fontFamily   String?
+  fontHeading  String?
+  fontBody     String?
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  // Tiap company punya 1 tema
+  companyId    Int           @unique
+  company      Company       @relation(fields: [companyId], references: [id])
+
+  // Light / Dark colors
+  colors       ThemeColor[]
+}
+
+model ThemeColor {
+  id        Int        @id @default(autoincrement())
+
+  // "light" | "dark"
+  mode      String?
+
+  // Semua warna nullable
+  bg        String?
+  card      String?
+  text      String?
+  accent    String?
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  themeId   Int
+  theme     Theme      @relation(fields: [themeId], references: [id])
+}
+

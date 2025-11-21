@@ -135,4 +135,70 @@ interface CompanyPayload {
   logo?: File | null
 }
 
+interface LandingPageResponse {
+  success: boolean
+  data?: Record<string, any>   // optional karena bisa gagal
+  message?: string
+}
+
+export interface Product {
+  id: number
+  name: string
+  description: string
+  price?: number
+  image?: string
+  companyId: number
+  createdAt: string
+}
+
+export interface ProductResponse {
+  success: boolean
+  data?: Product | Product[]
+  error?: string
+}
+
+export interface Banner {
+  id: number
+  title?: string
+  image: string
+  order: number
+  sectionId: number
+}
+
+export interface BannerResponse {
+  success: boolean
+  data: Banner | Banner[] | null
+  error?: string
+}
+
+export type ColorMode = 'light' | 'dark'
+
+export interface ThemeColor {
+  id: number
+  mode: ColorMode
+  bg?: string
+  card?: string
+  text?: string
+  accent?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface Theme {
+  id: number
+  name?: string              // ex: "Coffee Theme", "Modern"
+  fontFamily?: string
+  fontHeading?: string
+  fontBody?: string
+  companyId: number
+  colors: ThemeColor[]
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ThemeResponse {
+  success: boolean
+  data?: Theme | Theme[]
+  error?: string
+}
 

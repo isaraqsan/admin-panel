@@ -11,7 +11,7 @@ Get started with the Nuxt dashboard template with multiple pages, collapsible si
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/dashboard-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png">
-    <img alt="Nuxt Dashboard Template" src="https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png">
+    <img alt="Nuxt Dashboard Template" loading="lazy" src="https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png">
   </picture>
 </a>
 

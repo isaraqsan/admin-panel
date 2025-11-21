@@ -70,7 +70,7 @@ const onFileChange = (e: Event) => {
 
         <!-- Preview -->
         <transition name="fade">
-            <img v-if="localPreview" :src="localPreview" class="w-32 h-32 rounded-xl object-cover border border-gray-300
+            <img loading="lazy" v-if="localPreview" :src="localPreview" class="w-32 h-32 rounded-xl object-cover border border-gray-300
                dark:border-gray-700 shadow-lg" />
         </transition>
     </div>

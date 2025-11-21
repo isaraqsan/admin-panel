@@ -38,18 +38,18 @@ const links = [[
     onSelect: () => { open.value = false }
   },
   {
-    label: 'Settings',
-    to: '/settings',
-    icon: 'i-lucide-settings', // sudah oke
-    defaultOpen: true,
-    type: 'trigger',
-    children: [
-      { label: 'General', to: '/settings', exact: true, onSelect: () => { open.value = false } },
-      { label: 'Members', to: '/settings/members', icon: 'i-lucide-user', onSelect: () => { open.value = false } },
-      { label: 'Notifications', to: '/settings/notifications', icon: 'i-lucide-bell', onSelect: () => { open.value = false } },
-      { label: 'Security', to: '/settings/security', icon: 'i-lucide-lock', onSelect: () => { open.value = false } }
-    ]
-  }
+    label: 'Products',
+    icon: 'i-lucide-box', // settings → building
+    to: '/product',
+    onSelect: () => { open.value = false }
+  },
+  {
+    label: 'Theme',
+    icon: 'i-lucide-box', // settings → building
+    to: '/theme',
+    onSelect: () => { open.value = false }
+  },
+
 ]] satisfies NavigationMenuItem[][]
 
 const groups = computed(() => [{

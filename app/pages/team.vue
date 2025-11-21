@@ -93,7 +93,7 @@ const handleConfirmDelete = async () => {
             <div v-if="newPhoto"
               class="relative w-20 h-20 rounded-xl overflow-hidden border border-gray-300 dark:border-gray-700 shadow-sm">
               <img :src="filePreview" alt="Preview"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
           </transition>
 
@@ -112,7 +112,7 @@ const handleConfirmDelete = async () => {
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         <UCard v-for="member in teams" :key="member.id" class="p-3 flex flex-col">
-          <img v-if="member.photo" :src="member.photo" alt="" class="w-full h-48 object-cover rounded-md mb-2" />
+          <img v-if="member.photo" :src="member.photo" alt="" class="w-full h-48 object-cover rounded-md mb-2" loading="lazy" />
           <div class=" space-y-1">
             <h3 class="text-lg font-semibold">{{ member.name }}</h3>
             <p class="text-gray-500 dark:text-gray-400 text-sm">{{ member.position }}</p>
@@ -127,7 +127,7 @@ const handleConfirmDelete = async () => {
   </UDashboardPanel>
 
   <!-- Modal Konfirmasi Delete -->
-  <UModal v-if="showConfirm" :open="showConfirm" title="Delete Confirmation" prevent-close @close="showConfirm = false">
+  <UModal v-model:open="showConfirm" title="Delete Confirmation">
     <template #body>
       <div class="p-4 text-center space-y-3">
         <p class="text-gray-700 dark:text-gray-300">

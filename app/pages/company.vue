@@ -181,7 +181,7 @@ const handleDelete = async () => {
 
           <transition name="fade">
             <img v-if="filePreview" :src="filePreview"
-              class="w-32 h-32 rounded-xl object-cover border border-gray-300 dark:border-gray-700 shadow-lg" />
+              class="w-32 h-32 rounded-xl object-cover border border-gray-300 dark:border-gray-700 shadow-lg" loading="lazy"/>
           </transition>
         </div>
 
@@ -213,7 +213,7 @@ const handleDelete = async () => {
                  border border-gray-200 dark:border-gray-800 hover:shadow-md 
                  transition-all hover:scale-[1.02] backdrop-blur-sm">
 
-          <img v-if="item.logo" :src="item.logo" class="w-24 h-24 rounded-xl object-cover shadow mb-3" />
+          <img v-if="item.logo" :src="item.logo" class="w-24 h-24 rounded-xl object-cover shadow mb-3" loading="lazy" />
 
           <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
             {{ item.name }}
